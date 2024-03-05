@@ -1,38 +1,89 @@
-# Embedded-PaymentForm-ReactNative-Sdk
+# [Embedded-PaymentForm-ReactNative-Sdk]
 
-# Getting Started
+##  Índice
+* [1. Introducción](#1-introducción)
+* [2. Requisitos previos](#2-requisitos-previos)
+* [3. Despliegue](#3-despliegue)
+* [4. Datos de conexión](#4-datos-de-conexión)
+* [5. Transacción de prueba](#5-transacción-de-prueba)
+* [6. Implementación de la IPN](#6-implementación-de-la-ipn)
+* [7. Personalización](#7-personalización)
+* [8. Consideraciones](#8-consideraciones)
+## 1. Introducción
+En este manual podrás encontrar una guía paso a paso para configurar un proyecto de **[React Native SDK]** con la pasarela de pagos de IZIPAY. Te proporcionaremos instrucciones detalladas y credenciales de prueba para la instalación y configuración del proyecto, permitiéndote trabajar y experimentar de manera segura en tu propio entorno local.
+Este manual está diseñado para ayudarte a comprender el flujo de la integración de la pasarela para ayudarte a aprovechar al máximo tu proyecto y facilitar tu experiencia de desarrollo.
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+<p align="center">
+  <img src="https://github.com/izipay-pe/Imagenes/blob/main/formulario_movil_sdk/Imagen-Formulario-SDKAndroid.png?raw=true" alt="Formulario" width="350"/>
+</p>
 
-## Step 1: Start the Metro Server
+<a name="Requisitos_Previos"></a>
+ 
+## 2. Requisitos previos
+* Comprender el flujo de comunicación de la pasarela. [Información Aquí](https://secure.micuentaweb.pe/doc/es-PE/rest/V4.0/javascript/guide/start.html)
+* Extraer credenciales del Back Office Vendedor. [Guía Aquí](https://github.com/izipay-pe/obtener-credenciales-de-conexion)
+* Solicitar la habilitación de API REST: Pago a tráves de un SDK móvil para Android o IOS
+* Para este proyecto utilizamos la herramienta Android Studio y Visual Studio Code.
+> [!NOTE]
+> Tener en cuenta que, para que el desarrollo de tu proyecto, eres libre de emplear tus herramientas preferidas.
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
+## 3. Despliegue
 
-To start Metro, run the following command from the _root_ of your React Native project:
-
-```bash
-# using npm
+### Clonar el proyecto:
+  ```sh
+  git clone [https://github.com/izipay-pe/Embedded-PaymentForm-ReactNative-Sdk.git]
+  ```
+### Instalar dependencias
+```sh
 npm install
+```
+### Dispositivo Virtual
+Crear un dispositivo virtual desde Android Studio o puedes utilizar tu dispositivo físico.
+<p align="center">
+  <img src="adb-devices.png" alt="Run"/>
+</p>
 
+### Ejecutar proyecto en Android
+Ejecutar el proyecto a través de la terminal de comandos de Visual Studio Code en la raiz del proyecto.
+```sh
+  npx react-native run-android
 ```
 
-### For Android
+## 4. Datos de conexión 
 
-```bash
-# using npm
-npx react-native run-android
-```
+**Nota**: Reemplace **[CHANGE_ME]** con sus credenciales de `API REST` extraídas desde el Back Office Vendedor, ver [Requisitos Previos](#Requisitos_Previos).
 
-### For iOS
+* Editar en `src/Config.tsx` :
+<p align="center">
+  <img src="./credentials.png"/>
+</p>
 
-```bash
-# using npm
-npm run ios
+## 5. Transacción de prueba
+Antes de poner en marcha su pasarela de pago en un entorno de producción, es esencial realizar pruebas para garantizar su correcto funcionamiento. 
 
-# OR using Yarn
-yarn ios
-```
+Puede intentar realizar una transacción utilizando una tarjeta de prueba en el botón flotante de Test (en la parte superior derecha de la demo).
 
-## Step 2: Start your Application
+<p align="center">
+  <img src="https://raw.githubusercontent.com/izipay-pe/Imagenes/main/formulario_movil_sdk/Imagen-Formulario-SDKAndroid-testcard.png" alt="Test" width="450"/>
+</p>
 
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
+* También puede encontrar tarjetas de prueba en el siguiente enlace. [Tarjetas de prueba](https://secure.micuentaweb.pe/doc/es-PE/rest/V4.0/api/kb/test_cards.html)
+ 
+## 6. Implementación de la IPN
+> [!IMPORTANT]
+> Es recomendable implementar la IPN para comunicar el resultado de la solicitud de pago al servidor del comercio.
+
+La IPN es una notificación de servidor a servidor (servidor de Izipay hacia el servidor del comercio) que facilita información en tiempo real y de manera automática cuando se produce un evento, por ejemplo, al registrar una transacción.
+Los datos transmitidos en la IPN se reciben y analizan mediante un script que el vendedor habrá desarrollado en su servidor.
+* Ver manual de implementación de la IPN. [Aquí]( https://secure.micuentaweb.pe/doc/es-PE/rest/V4.0/kb/payment_done.html)
+* Vea el ejemplo de la respuesta IPN con JavaScript. [Aquí](https://github.com/izipay-pe/Server-IPN-JavaScript)
+* Vea el ejemplo de la respuesta IPN con PHP. [Aquí](https://github.com/izipay-pe/Server-IPN-Php)
+
+## 7. Personalización
+Si deseas aplicar cambios específicos en la apariencia de la pasarela de pago, puedes lograrlo mediante las opciones de personalización del SDK. En este enlace [Personalización - SDK](https://secure.micuentaweb.pe/doc/es-PE/mobp/integration_guide/react_native/) podrá encontrar la documentación para guiarlo en la personalización en la sección `Personalizar el SDK`.
+
+## 8. Consideraciones
+Para obtener más información, echa un vistazo a:
+- [Formulario incrustado: prueba rápida](https://secure.micuentaweb.pe/doc/es-PE/rest/V4.0/javascript/quick_start_js.html)
+- [Primeros pasos: pago simple](https://secure.micuentaweb.pe/doc/es-PE/rest/V4.0/javascript/guide/start.html)
+- [Servicios web - referencia de la API REST](https://secure.micuentaweb.pe/doc/es-PE/rest/V4.0/api/reference.html)
